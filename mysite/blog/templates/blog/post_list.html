@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for post in object_list %}
+      {% if post.published %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title">{{ post.title }}</h1>
+            </div>
+            <div class="panel-body">
+                <p>{{ post.content |truncatechars:127 }}</p>
+                <p><a href="{{ post.get_absolute_url }}">Read more...</a></p>
+                <span class="label label-default">{{ post.category }}</span>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-right">
+                  {{ post.modified_date }}
+                </div>
+            </div>
+        </div>
+      {% endif %}
+    {% empty %}
+    <p>No Posts!!</p>
+    {% endfor %}
+
+{% endblock %}

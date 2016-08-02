@@ -7,6 +7,12 @@ Tutorial for a Django Blog
 ![](https://f3f79d362f2f9272ed76ca8f1493bdd8d9ea59bd.googledrive.com/host/0B74beDyervjzWWdWY3lRYkJ4SGM/img/djangoExample.png)
 
 
+# Resources:
+
+- Classy Class-Based Views: https://ccbv.co.uk/
+- Built-in class-based views API: https://docs.djangoproject.com/en/1.10/ref/class-based-views/
+
+
 # Start
 
 ## Setup de environment

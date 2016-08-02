@@ -59,7 +59,7 @@ Output:
 ```
 .
 ├── db.sqlite3
-├── directory
+├── blog
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
@@ -84,7 +84,7 @@ Output:
 
 `edit mysite/settings.py`.
 
-Add `directory` to `INSTALLED_APPS`
+Add `blog` to `INSTALLED_APPS`
 
 
 ## Create the Models
@@ -102,9 +102,9 @@ Add `directory` to `INSTALLED_APPS`
 Add:
 
 ```python
-from .models import Person, Phone
+from .models import post, Phone
 
-admin.site.register(Person)
+admin.site.register(post)
 admin.site.register(Phone)
 
 ```
@@ -135,31 +135,31 @@ And add a few entries...
 
 ### List
 
-`edit directory/views.py`
+`edit blog/views.py`
 
 ```python
 from django.views.generic import ListView
-from directory.models import Person
+from blog.models import post
 
-class PersonList(ListView):
-    model = Person
+class postList(ListView):
+    model = post
 ```
 
-Create [directory/urls.py](mysite/directory/urls.py)
+Create [blog/urls.py](mysite/blog/urls.py)
 
 ```python
 from django.conf.urls import url
-from directory.views import PersonList
+from blog.views import postList
 
 urlpatterns = [
-    url(r'^list/$', PersonList.as_view()),
+    url(r'^list/$', postList.as_view()),
 ]
 
 ```
 
 `edit mysite/urls.py`.
 
-Add `directory` to `urlpatterns`:
+Add `blog` to `urlpatterns`:
 
 ```python
 from django.conf.urls import url, include
@@ -167,13 +167,13 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^directory/', include('directory.urls', namespace='directory')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
 ]
 ```
 
 #### Templates:
 
-create: [directory/templates/directory/person_list.html](mysite/directory/templates/directory/person_list.html)
+create: [blog/templates/blog/post_list.html](mysite/blog/templates/blog/post_list.html)
 
 ```
 <html>
@@ -184,12 +184,12 @@ create: [directory/templates/directory/person_list.html](mysite/directory/templa
 
 ```
 
-GO: http://localhost:8001/directory/list/
+GO: http://localhost:8001/blog/list/
 
 #### Templates: Let's make it better
 
-mysite/directory/templates/directory/base.html
+mysite/blog/templates/blog/base.html
 
-mysite/directory/templates/directory/person_list.html
+mysite/blog/templates/blog/post_list.html
 
-GO: http://localhost:8001/directory/list/
+GO: http://localhost:8001/blog/list/

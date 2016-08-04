@@ -6,10 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView
 class PostListView(ListView):
     model = Post
 
-
 class PostDetailView(DetailView):
     model = Post
-
 
 class PostCreateView(CreateView):
     model = Post

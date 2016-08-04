@@ -18,9 +18,11 @@ Tutorial for a Django Blog
 ## Setup de environment
 
 ```bash
-virtualenv env
+pip install --upgrade virtualenv
+virtualenv -p python3 env
 source env/bin/activate
-pip install Django==1.10
+pip install -r requirements.txt
+
 ```
 
 Test it:

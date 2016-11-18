@@ -136,4 +136,48 @@ admin.site.register(Post)
 Open: http://localhost:8000/admin/
 
 
+# Rest Framework
 
+Add it to the site:
+
+```
+INSTALLED_APPS = (
+    ...
+    'rest_framework',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
+```
+
+## Serializers
+
+```
+edit blog/serializers.py
+```
+
+Create:
+```
+CategorySerializer
+PostSerializer
+```
+
+## View sets
+
+```
+edit blog/views.py
+```
+
+Create:
+```
+CategoryViewSet
+PostViewSet
+```
+
+## Add the urls
+
+```
+edit my_site/urls.py
+```

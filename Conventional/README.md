@@ -1,17 +1,26 @@
 # DjangoBlog
-Tutorial for a Django Blog
 
 
 # Introduction
 
-![](https://f3f79d362f2f9272ed76ca8f1493bdd8d9ea59bd.googledrive.com/host/0B74beDyervjzWWdWY3lRYkJ4SGM/img/djangoExample.png)
+- High-level Python Web Framework
+- Quickly Develop Applications
+- Built-In Security:
+  - Cross-Site Request Forgery (CSRF)
+  - Cross site scripting (XSS)
+  - SQL injection protection
+  - etc...
+- Scalable
+- Built-In Administrative Interface
+
+## MVC vs MTV
+
+- Model = Model
+- View = Template
+- Controller = View
 
 
-# Resources:
-
-- Classy Class-Based Views: https://ccbv.co.uk/
-- Built-in class-based views API: https://docs.djangoproject.com/en/1.10/ref/class-based-views/
-
+![](https://i.stack.imgur.com/NLlwq.png)
 
 # Start
 
@@ -19,10 +28,9 @@ Tutorial for a Django Blog
 
 ```bash
 pip install --upgrade virtualenv
-virtualenv -p python3 env
+virtualenv -p python3 venv
 source env/bin/activate
 pip install -r requirements.txt
-
 ```
 
 Test it:
@@ -49,12 +57,32 @@ Output:
     └── wsgi.py
 ```
 
-Test it:
+### Test it:
+
 ```bash
 ./manage.py runserver
 ```
 
-Open: ```http://127.0.0.1:8000/```
+Open: http://127.0.0.1:8000/
+
+### Test Admin interface:
+
+```
+./manage.py migrate
+```
+
+Let's create a superuser (admin/admin123) and play with the models in the Django Admin Interface:
+
+```
+python manage.py createsuperuser
+```
+
+```
+./manage.py runserver
+```
+
+Open: http://localhost:8000/admin/
+
 
 ## Start the app blog
 
@@ -90,7 +118,7 @@ Output:
 
 ## Install the App:
 
-`edit mysite/settings.py`.
+Edit `mysite/settings.py`.
 
 Add `blog` to `INSTALLED_APPS`
 
@@ -100,104 +128,85 @@ Add `blog` to `INSTALLED_APPS`
 - Category
 - Post
 
-
 [Model field reference](https://docs.djangoproject.com/en/1.9/ref/models/fields/).
 
-### Admin Site
+```
+./manage.py makemigrations
+./manage.py migrate
+```
+
+## Get the new models on the Admin Site
 
 `edit blog/admin.py`
 
 Add:
 
 ```python
-from .models import post, Phone
+from .models import Category, Post
 
-admin.site.register(post)
-admin.site.register(Phone)
-
-```
-
-Let's create the models in the database:
-```
-./manage.py makemigrations
-./manage.py migrate
-```
-
-Let's create a super user (admin/admin123) and play with the models in the Django Admin Interface:
-
-```
-python manage.py createsuperuser
+admin.site.register(Category)
+admin.site.register(Post)
 ```
 
 ```
 ./manage.py runserver
 ```
 
-Go to: [http://localhost:8000/admin/](http://localhost:8000/admin/)
+Open: http://localhost:8000/admin/
 
-And add a few entries...
+## Create Views
 
-## Class Based Views
+Let's start with a `ListView` to list all the posts:
 
-[Reference](https://docs.djangoproject.com/en/1.9/topics/class-based-views/)
+## Add new URLs
 
-### List
+Add blog to global URLs:
 
-`edit blog/views.py`
+Edit: `/mysite/urls.py`
 
-```python
-from django.views.generic import ListView
-from blog.models import post
+Edit: `/mysite/blog/urls.py`
 
-class postList(ListView):
-    model = post
-```
+## Create Templates:
 
-Create [blog/urls.py](mysite/blog/urls.py)
+create: [blog/templates/blog/post_list.html](Conventional/mysite/blog/templates/blog/post_list.html)
 
-```python
-from django.conf.urls import url
-from blog.views import postList
-
-urlpatterns = [
-    url(r'^list/$', postList.as_view()),
-]
-
-```
-
-`edit mysite/urls.py`.
-
-Add `blog` to `urlpatterns`:
-
-```python
-from django.conf.urls import url, include
-from django.contrib import admin
-
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('blog.urls', namespace='blog')),
-]
-```
-
-#### Templates:
-
-create: [blog/templates/blog/post_list.html](mysite/blog/templates/blog/post_list.html)
-
-```
+```html
 <html>
 {% for object in object_list %}
-  {{object}}
+  {{ object }}
+  <hr/>
 {% endfor %}
 </html>
 
 ```
 
-GO: http://localhost:8001/blog/list/
+Go to: http://localhost:8001/blog/list/
 
 #### Templates: Let's make it better
 
-mysite/blog/templates/blog/base.html
+Create a base template:
 
-mysite/blog/templates/blog/post_list.html
+`mysite/blog/templates/blog/base.html`
+
+```html
+<html>
+{% block content %}Empty page{% endblock %}
+</html>
+```
+
+Create the content:
+
+`mysite/blog/templates/blog/post_list.html`
+
+
+```html
+{% extends 'base.html' %}
+{% block content %}
+{% for object in object_list %}
+  {{ object }}
+  <hr/>
+{% endfor %}
+{% endblock %}
+```
 
 GO: http://localhost:8001/blog/list/

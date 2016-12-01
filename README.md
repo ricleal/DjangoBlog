@@ -6,6 +6,7 @@ Tutorial for a Django Blog
 
 - High-level Python Web Framework
 - Quickly Develop Applications
+- ORM: Object-relational Mapper
 - Built-In Security:
   - Cross-Site Request Forgery (CSRF)
   - Cross site scripting (XSS)
@@ -20,8 +21,8 @@ Tutorial for a Django Blog
 - View = Template
 - Controller = View
 
+![](http://wiki.openhatch.org/images/thumb/f/fd/Mtv-diagram.png/400px-Mtv-diagram.png)
 
-![](https://i.stack.imgur.com/NLlwq.png)
 
 ## Serving Django web pages
 
@@ -36,6 +37,7 @@ Tutorial for a Django Blog
     
     `the web client <-> the web server <-> the socket <-> uwsgi <-> Django`
 
+![](https://i.stack.imgur.com/NLlwq.png)
 
 # Django Default
 

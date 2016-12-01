@@ -180,6 +180,8 @@ create: [blog/templates/blog/post_list.html](Conventional/mysite/blog/templates/
 
 ```
 
+[Built-in template tags and filters](https://docs.djangoproject.com/en/1.10/ref/templates/builtins/)
+
 Go to: http://localhost:8001/blog/list/
 
 #### Templates: Let's make it better
